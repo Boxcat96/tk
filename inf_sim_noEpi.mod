@@ -55,9 +55,9 @@ estimated_params;
 % kappa, normal_pdf, 0.1, 0.1;    % NKPCの需給ギャップ項            % 北村・田中（2019）
 % eta, beta_pdf, 0.1, 0.1;      % 輸入物価への感応度              % 北村・田中（2019）
 % omega, beta_pdf, 0.5, 0.2;      % 輸入物価ショックの慣性          % 北村・田中（2019）
-%mu, beta_pdf, 0.6, 0.1;         % 合理的無関心の度合い            % 北村・田中（2019）
-lambda, beta_pdf, 0.5, 0.2;     % 適合的期待の度合い  
-%alpha, beta_pdf, 0.09, 0.01;    % インフレ率の実績値への感応度    % 北村・田中（2019）
+% mu, beta_pdf, 0.5, 0.2;         % 合理的無関心の度合い            % 北村・田中（2019）
+lambda, beta_pdf, 0.5, 0.1;     % 適合的期待の度合い  
+% alpha, beta_pdf, 0.09, 0.01;    % インフレ率の実績値への感応度    % 北村・田中（2019）
 % rho, beta_pdf, 0.7, 0.2;        % 名目金利の慣性 
 
 stderr eIPI, inv_gamma_pdf, 0.1, inf;
@@ -74,7 +74,7 @@ end;
 %パート5 シミュレーション
 varobs y_obs pi_obs; % 読み取る観測データ
 
-estimation(datafile=data_inf, mode_check, mh_replic=10000, mh_nblocks=2,
-mh_drop=0.5, mh_jscale=0.75, bayesian_irf);
+estimation(datafile=data_inf, mode_check, mh_replic=10000, mh_nblocks=2, mh_conf_sig = 0.95,
+mh_drop=0.5, mh_jscale=0.95, bayesian_irf);
 
 stoch_simul;
