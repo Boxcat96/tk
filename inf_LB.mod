@@ -60,9 +60,9 @@ values 0.8333;       % ショックの大きさ
 //periods 1;         % ショック発生期
 //values -2;          % ショックの大きさ
 
-var lb;          % 輸入物価上昇ショック
+var lb;               % 実効下限金利
 periods 1:50;         % ショック発生期
-values -0.00001;          % ショックの大きさ    % default = -0.00001
+values -0.00001;      % ショックの大きさ    % default = -0.00001
 
 end;
 
