@@ -44,6 +44,7 @@ IPI = 0;
 epi = 0;
 tau = 0;
 r = 0;
+r_lb = 0;
 pistar = 0;
 end;
 steady;   % Check that this is indeed the steady state
