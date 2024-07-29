@@ -56,9 +56,9 @@ periods 1;           % ショック発生期
 values 0.8333;       % ショックの大きさ
 % ショックの大きさ＝1/(1-rho)*変更後の定常状態のインフレ率(ベースラインは0.5)
 
-var eIPI;          % 輸入物価上昇ショック
-periods 1;         % ショック発生期
-values -1;          % ショックの大きさ
+//var eIPI;          % 輸入物価上昇ショック
+//periods 1;         % ショック発生期
+//values -5;          % ショックの大きさ
 
 var lb;               % 実効下限金利
 periods 1:50;         % 期間
@@ -70,7 +70,7 @@ end;
 perfect_foresight_setup(periods=50);
 
 // Perform the simulation
-perfect_foresight_solver;
+//perfect_foresight_solver;
 perfect_foresight_solver(lmmcp); % Lower Bound
 
 // Draw IRFs
