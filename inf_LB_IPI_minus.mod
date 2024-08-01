@@ -53,7 +53,7 @@ steady;   % Check that this is indeed the steady state
 shocks;
 //var epistar;         % インフレ目標未達ショック
 //periods 1;           % ショック発生期
-//values 0.4167;       % ショックの大きさ
+//values 0.8333;       % ショックの大きさ
 % ショックの大きさ＝1/(1-rho)*変更後の定常状態のインフレ率(ベースラインは0.5)
 
 var eIPI;          % 輸入物価上昇ショック

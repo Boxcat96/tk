@@ -2,7 +2,7 @@
 addpath c:\dynare\5.5\matlab
 
 % -- ショックの大きさ＝1/(1-rho)*変更後の定常状態のインフレ率(ベースラインは0.5)
-terminal_rate = 0.5; % ターミナルレート
+terminal_rate = 0.75; % ターミナルレート
 
 % -- Run Dynare
 % ベンチマーク
