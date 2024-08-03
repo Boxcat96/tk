@@ -7,7 +7,7 @@ var y pi IPI epi tau r r_lb pistar;  % 内生変数（需給ギャップ、イ�
 varexo eIPI epistar lb;    % 外生変数（輸入物価上昇ショック、物価観上昇ショック、インフレ目標未達ショック、金融政策ショック）
 
 // Parameters ////////////////////////////////////////////////////////
-parameters sigma_1 sigma_2 theta gamma kappa eta rho lambda mu alpha omega phipi phiy;
+parameters sigma_1 sigma_2 theta gamma kappa eta rho lambda mu alpha omega phipi phiy shock_size;
 
 sigma_1 = 1.35;     % 需給ギャップのラグ第1項         % 北村・田中（2019）
 sigma_2 = 0.38;     % 需給ギャップのラグ第1項         % 北村・田中（2019）
@@ -23,6 +23,7 @@ phipi = 1.0;        % テイラールールのインフレ率項    % 標準的�
 phiy = 0.5;         % テイラールールの需給ギャップ項  % 標準的なテイラールール
 
 rho = 0.4;          % 名目金利の慣性                  % とりあえず置き
+shock_size = 1/(1-rho)*terminal_rate;                 % インフレ目標のショックサイズ
 
 // Equilibrium conditions
 model;
@@ -31,7 +32,7 @@ pi = gamma*pi(-1) + (1-gamma)*epi(+1) + kappa*y + eta*IPI;                % NKPC
 IPI = omega*IPI(-1) + eIPI;                                               % 輸入物価ショックの推移式
 epi = (1 - lambda)*((1 - mu)*pi(+1) + mu*tau(-1)) + lambda*(pi(-1));      % インフレ予想の推移（適合的期待）
 tau = (1 - alpha)*tau(-1) + alpha*pi;                                     % 物価観の推移式
-r = tau + rho*r(-1) + (1-rho)*(phipi*(pi-pistar) + phiy*y);               % テイラールール
+r = tau + rho*r(-1) + (1-rho)*(phipi*(pi-shock_size*pistar) + phiy*y);               % テイラールール
 r_lb = max(r, lb);
 pistar = pistar(-1) + epistar;                                            % インフレ目標の推移式（permanent shock）
 end;
@@ -44,7 +45,6 @@ IPI = 0;
 epi = 0;
 tau = 0;
 r = 0;
-r_lb = 0;
 pistar = 0;
 end;
 steady;   % Check that this is indeed the steady state
@@ -53,8 +53,7 @@ steady;   % Check that this is indeed the steady state
 shocks;
 //var epistar;         % インフレ目標未達ショック
 //periods 1;           % ショック発生期
-//values 0.8333;       % ショックの大きさ
-% ショックの大きさ＝1/(1-rho)*変更後の定常状態のインフレ率(ベースラインは0.5)
+//values 1;            % ショックの大きさ
 
 var eIPI;          % 輸入物価上昇ショック
 periods 1;         % ショック発生期

@@ -11,7 +11,6 @@ connect_flag = 0;
 save_result;
 xlswrite('result/benchmark.xlsx', data_export);
 save mat/inf_LB data_export
-shock_size;
 
 % 0.25bps利上げパターン
 dynare inf_lb_25hike
@@ -19,7 +18,6 @@ connect_flag = 0;
 save_result;
 xlswrite('result/25hike.xlsx', data_export);
 save mat/25hike data_export
-shock_size;
 
 % 輸入物価ショック（プラス）
 dynare inf_lb_IPI_plus
