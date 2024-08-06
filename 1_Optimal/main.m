@@ -1,3 +1,4 @@
+%% ------------------------------------------------------------------------
 % -- Add Dynare Path
 clear all; clc; tic;
 % Set your own Dynare path
@@ -17,10 +18,12 @@ phiys =  0.1 : 0.1 : 1.0;
 taylor_set = table2array(combinations(rhos, phipis, phiys));
 
 % simlation number of attempts
-sim_num = 10;
+sim_num = 1000;
 shock_mean = 0.625;
 shock_stdev = 5;
 sim_period = 10;
+
+%% ------------------------------------------------------------------------
 
 % -- run for each case
 for simcase = 1:3
