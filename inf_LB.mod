@@ -9,21 +9,20 @@ varexo eIPI epistar lb;    % 外生変数（輸入物価上昇ショック、物
 // Parameters ////////////////////////////////////////////////////////
 parameters sigma_1 sigma_2 theta gamma kappa eta rho lambda mu alpha omega phipi phiy shock_size;
 
-load("mat/params_dynare.mat");
-set_param_value("sigma_1",params.sigma_1);
-set_param_value("sigma_2",params.sigma_2);
-set_param_value("theta",params.theta);
-set_param_value("gamma",params.gamma);
-set_param_value("kappa",params.kappa);
-set_param_value("eta",params.eta);
-set_param_value("omega",params.omega);
-set_param_value("mu",params.mu);
-set_param_value("lambda",params.lambda);
-set_param_value("alpha",params.alpha);
-set_param_value("phipi",params.phipi);
-set_param_value("phiy",params.phiy);
-set_param_value("rho",params.rho);
+sigma_1 = 1.35;     % 需給ギャップのラグ第1項         % 北村・田中（2019）
+sigma_2 = 0.38;     % 需給ギャップのラグ第1項         % 北村・田中（2019）
+theta = 1.5;        % オイラー方程式
+gamma = 0.31;       % NKPCのバックワード項            % 北村・田中（2019）
+kappa = 0.14;       % NKPCの需給ギャップ項            % 北村・田中（2019）
+eta = 0.11;         % 輸入物価への感応度              % 北村・田中（2019）
+omega = 0.35;       % 輸入物価ショックの慣性          % 北村・田中（2019）
+mu = 0.51;          % 合理的無関心の度合い            % 北村・田中（2019）
+lambda = 0.15;      % 適合的期待の度合い              % とりあえず置き
+alpha = 0.09;       % インフレ率の実績値への感応度    % 北村・田中（2019）
+phipi = 1.0;        % テイラールールのインフレ率項    % 標準的なテイラールール
+phiy = 0.5;         % テイラールールの需給ギャップ項  % 標準的なテイラールール
 
+rho = 0.4;          % 名目金利の慣性                  % とりあえず置き
 shock_size = terminal_rate*(rho+(1-rho)*phipi)/((1-rho)*phipi);          % インフレ目標のショックサイズ
 
 // Equilibrium conditions
@@ -61,17 +60,17 @@ values 1;       % ショックの大きさ
 //values -5;          % ショックの大きさ
 
 var lb;               % 実効下限金利
-periods 1:200;         % 期間
+periods 1:50;         % 期間
 values -0.00001;      % 下限金利    % default = -0.00001
 
 end;
 
 // Prepare the deterministic simulation of the model over periods
-perfect_foresight_setup(periods=200);
+perfect_foresight_setup(periods=50);
 
 // Perform the simulation
 //perfect_foresight_solver;
 perfect_foresight_solver(lmmcp); % Lower Bound
 
 // Draw IRFs
-//rplot y pi epi r_lb tau;
+rplot y pi epi r_lb tau;
